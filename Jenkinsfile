@@ -16,9 +16,7 @@ pipeline {
 
         stage('Dependencies') {
             steps {
-			 bat 'dir composer.json'  // Verify in workspace
-        bat 'dir vendor || echo NO VENDOR YET'
-                bat "${COMPOSER_PATH} install --no-progress --no-interaction"
+			 bat 'dir composer.json'  // Verify in workspace       
 				bat 'dir vendor\\autoload.php'  // ✅ Exists
             }
         }
