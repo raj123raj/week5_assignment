@@ -19,22 +19,23 @@ pipeline {
         stage('Dependencies') {
             steps {
                 // Verify composer.json exists in workspace
-                bat 'dir composer.json'                
-                bat 'dir vendor || echo NO VENDOR YET'
+                bat 'dir composer.json'         
+                
                 // Install PHP dependencies -> creates vendor/autoload.php
                 bat "%COMPOSER_PATH% install --no-progress --no-interaction"
-				bat 'dir vendor\\autoload.php'  // ✅ Exists
+				
             }
         }
 
-        stage('Environment') {
-            steps {
-                bat """
-                if not exist .env copy /Y.env.example .env
-                "%PHP_PATH%" artisan key:generate --force
-                """
-            }
-        }
+      stage('Environment') {
+    steps {
+        bat """
+        copy /Y .env.example .env
+        "%PHP_PATH%" artisan key:generate --force
+        """
+    }
+}
+
 
         stage('Test DB') {
             steps {
