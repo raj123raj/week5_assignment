@@ -17,7 +17,6 @@ pipeline {
         stage('Dependencies') {
             steps {
 			 bat 'dir composer.json'  // Verify in workspace       
-				bat 'dir vendor\\autoload.php'  // ✅ Exists
             }
         }
         stage('Environment') {
