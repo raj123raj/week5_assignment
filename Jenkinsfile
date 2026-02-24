@@ -10,7 +10,7 @@ pipeline {
             steps {
                 git branch: 'main', 
                     credentialsId: 'github-raj123raj',
-                    url: 'https://github.com/raj123raj/my-laravel-app'
+                    url: 'https://github.com/raj123raj/week5_assignment'
             }
         }
 
