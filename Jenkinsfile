@@ -55,27 +55,18 @@ pipeline {
         stage('Deploy Local') {
             steps {
                 bat """
-                xcopy /E /I /Y /H . "%LOCAL_DEPLOYPATH%" /exclude:exclude.txt
+                    if exist exclude.txt (
+                        xcopy /E /I /Y /H . "%LOCAL_DEPLOYPATH%" /exclude:exclude.txt
+                    ) else (
+                        xcopy /E /I /Y /H . "%LOCAL_DEPLOYPATH%"
+                    )
                 """
+
+
             }
         }
 
-        stage('Deploy Server') {
-            steps {
-                sshagent(['ssh-deploy-key']) {
-                    // Note: this ssh+remote script assumes composer/php are on PATH on the server
-                    bat """
-                    ssh -o StrictHostKeyChecking=no ubuntu@your-server \"
-                    cd /var/www/my-app &&
-                    git pull origin main &&
-                    composer install --no-dev --no-interaction &&
-                    php artisan migrate --force &&
-                    php artisan optimize &&
-                    sudo systemctl reload nginx php8.3-fpm \"
-                    """
-                }
-            }
-        }
+
     }
 
     post {
