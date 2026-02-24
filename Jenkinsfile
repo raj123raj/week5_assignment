@@ -30,7 +30,7 @@ pipeline {
         stage('Environment') {
             steps {
                 bat """
-                if not exist .env copy .env.example .env
+                if not exist .env copy /Y.env.example .env
                 "%PHP_PATH%" artisan key:generate --force
                 """
             }
