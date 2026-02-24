@@ -69,11 +69,5 @@ pipeline {
 
     }
 
-    post {
-        always {
-            // Only if you really produce JUnit XML into storage/logs; otherwise remove this.
-            junit 'storage/logs/*.xml'
-            cleanWs()
-        }
-    }
+
 }
